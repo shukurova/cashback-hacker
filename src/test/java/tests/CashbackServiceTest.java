@@ -74,7 +74,7 @@ public class CashbackServiceTest {
     }
 
     @ParameterizedTest
-    @DisplayName("Check cashback if amount is negative")
+    @DisplayName("Parameterized positive test")
     @CsvFileSource(resources = "/test-data.csv")
     void parameterizedTest(int amount) {
         int neededAmount = CASHBACK_BOUNDARY + amount;
