@@ -15,6 +15,15 @@ public class CashbackHackService {
      * @return how much is not enough
      */
     public int remainSumForCashback(int amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Amount must be greater than zero");
+        }
+
+        boolean isNeedMore = amount % CASHBACK_BOUNDARY != 0;
+        if (!isNeedMore) {
+            return 0;
+        }
+
         return CASHBACK_BOUNDARY - amount % CASHBACK_BOUNDARY;
     }
 }
