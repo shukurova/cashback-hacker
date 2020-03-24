@@ -35,9 +35,8 @@ public class CashbackServiceTest {
     void zeroAmountTest() {
         int amount = 0;
 
-        int actual = service.remainSumForCashback(amount);
-
-        assertEquals(CASHBACK_BOUNDARY, actual, "Service return invalid sum");
+        assertThrows(IllegalArgumentException.class, () -> service.remainSumForCashback(amount),
+                "Service doesn't throws IllegalArgumentException");
     }
 
     @Test
