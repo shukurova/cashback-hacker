@@ -3,6 +3,8 @@ package tests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import service.CashbackHackService;
 
 import static data.DataClass.CASHBACK_BOUNDARY;
@@ -67,6 +69,18 @@ public class CashbackServiceTest {
 
         int actual = service.remainSumForCashback(amount);
         int expected = CASHBACK_BOUNDARY - additionalAmount;
+
+        assertEquals(expected, actual, "Service return invalid sum");
+    }
+
+    @ParameterizedTest
+    @DisplayName("Check cashback if amount is negative")
+    @CsvFileSource(resources = "/test-data.csv")
+    void parameterizedTest(int amount) {
+        int neededAmount = CASHBACK_BOUNDARY + amount;
+
+        int actual = service.remainSumForCashback(neededAmount);
+        int expected = CASHBACK_BOUNDARY - amount;
 
         assertEquals(expected, actual, "Service return invalid sum");
     }
