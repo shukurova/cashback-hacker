@@ -1,9 +1,20 @@
 package service;
 
-public class CashbackHackService {
-    private final int boundary = 1000;
+import static data.DataClass.CASHBACK_BOUNDARY;
 
-    public int remain(int amount) {
-        return boundary - amount % boundary;
+/**
+ * Service for cashback calculation.
+ */
+public class CashbackHackService {
+
+    /**
+     * If amount less or more of boundary
+     * service need to calculate how much is not enough to cashback.
+     *
+     * @param amount needed amount
+     * @return how much is not enough
+     */
+    public int remainSumForCashback(int amount) {
+        return CASHBACK_BOUNDARY - amount % CASHBACK_BOUNDARY;
     }
 }
