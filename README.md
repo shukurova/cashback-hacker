@@ -1,0 +1,1 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/725fobig1ksnw2y1/branch/master?svg=true)](https://ci.appveyor.com/project/shukurova/cashback-hacker/branch/master)
