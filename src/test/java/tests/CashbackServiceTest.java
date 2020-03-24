@@ -1,12 +1,17 @@
 package tests;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import service.CashbackHackService;
 
+import static data.DataClass.CASHBACK_BOUNDARY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Test for cachback service.
+ */
 public class CashbackServiceTest {
 
     private CashbackHackService service;
@@ -17,49 +22,52 @@ public class CashbackServiceTest {
     }
 
     @Test
+    @DisplayName("Check cashback if amount is negative")
     void negativeAmountTest() {
         int amount = - 100;
 
-        assertThrows(IllegalArgumentException.class, () -> service.remain(amount),
+        assertThrows(IllegalArgumentException.class, () -> service.remainSumForCashback(amount),
                 "Service doesn't throws IllegalArgumentException");
     }
 
     @Test
+    @DisplayName("Check cashback if amount is equal zero")
     void zeroAmountTest() {
         int amount = 0;
 
-        int actual = service.remain(amount);
-        int expected = 1000;
+        int actual = service.remainSumForCashback(amount);
 
-        assertEquals(expected, actual, "Service return invalid sum");
+        assertEquals(CASHBACK_BOUNDARY, actual, "Service return invalid sum");
     }
 
     @Test
+    @DisplayName("Check cashback with less than cashback boundary")
     void positiveTest() {
-        int amount = 900;
+        int amount = CASHBACK_BOUNDARY - 10;
 
-        int actual = service.remain(amount);
-        int expected = 100;
+        int actual = service.remainSumForCashback(amount);
+        int expected = CASHBACK_BOUNDARY - amount;
 
         assertEquals(expected, actual, "Service return invalid sum");
     }
 
     @Test
-    void shouldReturnZeroIfAmount1000() {
-        int amount = 1000;
-
-        int actual = service.remain(amount);
+    @DisplayName("Check cashback if amount equal to cashback boundary")
+    void shouldReturnZeroIfAmountEqualToBoundary() {
+        int actual = service.remainSumForCashback(CASHBACK_BOUNDARY);
         int expected = 0;
 
         assertEquals(expected, actual, "Service return invalid sum");
     }
 
     @Test
-    void amountMoreThan1000() {
-        int amount = 1100;
+    @DisplayName("Check cashback if amount more than cashback boundary")
+    void amountMoreThanBoundary() {
+        int additionalAmount = 100;
+        int amount = CASHBACK_BOUNDARY + additionalAmount;
 
-        int actual = service.remain(amount);
-        int expected = 900;
+        int actual = service.remainSumForCashback(amount);
+        int expected = CASHBACK_BOUNDARY - additionalAmount;
 
         assertEquals(expected, actual, "Service return invalid sum");
     }
