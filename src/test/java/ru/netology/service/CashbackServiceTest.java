@@ -1,10 +1,9 @@
-package ru.netology.tests;
+package ru.netology.service;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import ru.netology.service.CashbackHackService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -21,8 +20,7 @@ public class CashbackServiceTest {
     void negativeAmountTest() {
         int amount = - 100;
 
-        assertThrows(IllegalArgumentException.class, () -> service.remainSumForCashback(amount),
-                "Service doesn't throws IllegalArgumentException");
+        assertThrows(IllegalArgumentException.class, () -> service.remainSumForCashback(amount));
     }
 
     @Test
@@ -30,8 +28,7 @@ public class CashbackServiceTest {
     void zeroAmountTest() {
         int amount = 0;
 
-        assertThrows(IllegalArgumentException.class, () -> service.remainSumForCashback(amount),
-                "Service doesn't throws IllegalArgumentException");
+        assertThrows(IllegalArgumentException.class, () -> service.remainSumForCashback(amount));
     }
 
     @Test
@@ -39,10 +36,10 @@ public class CashbackServiceTest {
     void positiveTest() {
         int amount = 990;
 
-        int actual = service.remainSumForCashback(amount);
+        int actualResult = service.remainSumForCashback(amount);
         int expectedResult = 10;
 
-        assertEquals(expectedResult, actual, "Service return invalid sum");
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -50,10 +47,10 @@ public class CashbackServiceTest {
     void shouldReturnZeroIfAmountEqualToBoundary() {
         int amount = 1000;
 
-        int actual = service.remainSumForCashback(amount);
-        int expected = 0;
+        int actualResult = service.remainSumForCashback(amount);
+        int expectedResult = 0;
 
-        assertEquals(expected, actual, "Service return invalid sum");
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -61,18 +58,18 @@ public class CashbackServiceTest {
     void amountMoreThanBoundary() {
         int amount = 1100;
 
-        int actual = service.remainSumForCashback(amount);
-        int expected = 900;
+        int actualResult = service.remainSumForCashback(amount);
+        int expectedResult = 900;
 
-        assertEquals(expected, actual, "Service return invalid sum");
+        assertEquals(expectedResult, actualResult);
     }
 
     @ParameterizedTest(name = "{0}")
     @DisplayName("Parameterized positive tests")
-    @CsvFileSource(resources = "/test-data.csv", delimiter = ',', numLinesToSkip = 1)
-    void parameterizedTest(String testName, int amount, int expected) {
-        int actual = service.remainSumForCashback(amount);
+    @CsvFileSource(resources = "/cashback-service-data.csv", delimiter = ',', numLinesToSkip = 1)
+    void parameterizedTest(String testName, int amount, int expectedResult) {
+        int actualResult = service.remainSumForCashback(amount);
 
-        assertEquals(expected, actual, "Service return invalid sum");
+        assertEquals(expectedResult, actualResult);
     }
 }
