@@ -1,11 +1,11 @@
-package service;
-
-import static data.DataClass.CASHBACK_BOUNDARY;
+package ru.netology.service;
 
 /**
  * Service for cashback calculation.
  */
 public class CashbackHackService {
+
+    private final int cashbackBoundary = 1000;
 
     /**
      * If amount less or more of boundary
@@ -19,11 +19,11 @@ public class CashbackHackService {
             throw new IllegalArgumentException("Amount must be greater than zero");
         }
 
-        boolean isNeedMore = amount % CASHBACK_BOUNDARY != 0;
+        boolean isNeedMore = amount % cashbackBoundary != 0;
         if (!isNeedMore) {
             return 0;
         }
 
-        return CASHBACK_BOUNDARY - amount % CASHBACK_BOUNDARY;
+        return cashbackBoundary - amount % cashbackBoundary;
     }
 }
